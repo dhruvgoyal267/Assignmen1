@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Assignmen1</string>
+    <string name="signup">SignUp</string>
+    <string name="name">Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="profile">Profile</string>
+</resources>
