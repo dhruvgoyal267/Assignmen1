@@ -9,6 +9,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         presenter = new MainActivityPresenter(this);
 
         signUpButton.setOnClickListener(v -> {
-           signUp();
+            presenter.updateUser(userName.getText().toString(),email.getText().toString(),password.getText().toString(),phone.getText().toString());
+            presenter.signUp();
         });
     }
 
@@ -51,54 +53,13 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     }
 
     @Override
-    public void signUp() {
-       showProgressBar();
-        String nameText = userName.getText().toString().trim();
-        String emailText = email.getText().toString().trim();
-        String passText = password.getText().toString().trim();
-        String phoneText = phone.getText().toString().trim();
+    public void onSuccess() {
+        Intent intent = new Intent(this,HomeActivity.class);
+        startActivity(intent);
+    }
 
-        boolean flag = true;
-
-        if(TextUtils.isEmpty(nameText)) {
-            userName.setError("Name can't be empty");
-            flag = false;
-        }else
-            presenter.updateName(nameText);
-
-        if(TextUtils.isEmpty(emailText)){
-            email.setError("Email can't be empty");
-            flag = false;
-        }
-        else if(!Patterns.EMAIL_ADDRESS.matcher(emailText).matches()){
-            email.setError("Invalid email format");
-            flag = false;
-        }
-        else
-            presenter.updateEmail(emailText);
-
-        if(TextUtils.isEmpty(passText)){
-            password.setError("Password can't be empty");
-            flag = false;
-        }
-        else
-            presenter.updatePassword(passText);
-
-        if(TextUtils.isEmpty(phoneText)){
-            phone.setError("Phone Number can't be empty");
-            flag = false;
-        }
-        else if(!Patterns.PHONE.matcher(phoneText).matches()){
-            phone.setError("Invalid Phone Number");
-            flag = false;
-        }
-        else
-            presenter.updatePhoneNumber(phoneText);
-        if(flag){
-            presenter.updateUser();
-            Intent intent = new Intent(this,HomeActivity.class);
-            startActivity(intent);
-        }
-        hideProgressBar();
+    @Override
+    public void onFailure(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
     }
 }

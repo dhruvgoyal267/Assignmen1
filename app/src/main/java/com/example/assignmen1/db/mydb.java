@@ -53,9 +53,9 @@ public class mydb extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query,null);
         User user = new User();
         if(cursor.moveToFirst()){
-            user.setFullName(cursor.getColumnName(cursor.getColumnIndexOrThrow(COL_NAME)));
-            user.setEmail(cursor.getColumnName(cursor.getColumnIndexOrThrow(COL_EMAIL)));
-            user.setPhoneNumber(cursor.getColumnName(cursor.getColumnIndexOrThrow(COL_PHONE)));
+            user.setFullName(cursor.getString(cursor.getColumnIndexOrThrow(COL_NAME)));
+            user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(COL_EMAIL)));
+            user.setPhoneNumber(cursor.getString(cursor.getColumnIndexOrThrow(COL_PHONE)));
         }
         cursor.close();
         database.close();

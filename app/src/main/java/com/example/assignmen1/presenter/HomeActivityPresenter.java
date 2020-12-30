@@ -1,6 +1,7 @@
 package com.example.assignmen1.presenter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
 import com.example.assignmen1.R;
@@ -12,8 +13,8 @@ public class HomeActivityPresenter {
     mydb db;
     View view;
 
-    public HomeActivityPresenter(Context context) {
-        this.user = new User();
+    public HomeActivityPresenter(View view,Context context) {
+        this.view = view;
         this.db = new mydb(context);
         this.user = this.db.getUser();
     }
@@ -23,6 +24,8 @@ public class HomeActivityPresenter {
         view.updateEmail(this.user.getEmail());
         view.updatePhone(this.user.getPhoneNumber());
     }
+
+
 
     public interface View {
         public void updateEmail(String email);
